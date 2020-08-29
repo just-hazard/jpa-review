@@ -6,6 +6,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Account {
@@ -23,7 +25,18 @@ public class Account {
     private LocalDateTime created;
 
     @Transient  // 릴레이션 컬럼으로 만들지 않음
-   private String no;
+    private String no;
+
+    @OneToMany
+    private Set<Study> studies = new HashSet<>();
+
+    public Set<Study> getStudies() {
+        return studies;
+    }
+
+    public void setStudies(Set<Study> studies) {
+        this.studies = studies;
+    }
 
     public Long getId() {
         return id;

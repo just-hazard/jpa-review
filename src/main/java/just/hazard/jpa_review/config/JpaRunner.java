@@ -1,6 +1,7 @@
 package just.hazard.jpa_review.config;
 
 import just.hazard.jpa_review.domain.Account;
+import just.hazard.jpa_review.domain.Study;
 import org.hibernate.Session;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -23,7 +24,14 @@ public class JpaRunner implements ApplicationRunner {
         account.setPassword("hazard");
         account.setUsername("eden");
 
+        Study study = new Study();
+        study.setName("JPA");
+
+        account.getStudies().add(study);
+        study.setOwner(account);
+
         Session session = entityManager.unwrap(Session.class);
         session.save(account);
+        session.save(study);
     }
 }
